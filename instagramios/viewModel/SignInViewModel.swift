@@ -15,13 +15,44 @@ class SignInViewModel: ObservableObject
     @Published var password = ""
     @Published var isLoading: Bool = false
     @Published var showingAlert = false
-    
     @Published var messageEmailErr = ""
     @Published var messagePasswordErr = ""
     @Published var isValid = false
     
     private var cancellableSet: Set<AnyCancellable> = []
     @AppStorage(Settings.isLogined.rawValue) var isLogined: Bool = false
+    
+    init() {
+       
+        isEmailValidPublisher
+            .receive(on: RunLoop.main)
+            .map {
+                valid in
+                valid ? "" : Strings.emailInvalid.rawValue
+            }
+            .assign(to: \.messageEmailErr, on: self)
+            .store(in: &cancellableSet)
+        
+        isPasswordValidPublisher
+            .receive(on: RunLoop.main)
+            .map {
+                valid in
+                valid ? "" : Strings.requiredField.rawValue
+            }
+            .assign(to: \.messagePasswordErr, on: self)
+            .store(in: &cancellableSet)
+        
+        isValidForm
+            .receive(on: RunLoop.main)
+            .assign(to: \.isValid, on: self)
+            .store(in: &cancellableSet)
+        
+        if !Connectivity.isConnectedToInternet() {
+               print("internet is not available.")
+            return;
+        }
+        
+    }
     
     private var isEmailValidPublisher: AnyPublisher<Bool, Never> {
         $email
@@ -59,43 +90,18 @@ class SignInViewModel: ObservableObject
     
     func login() {
         self.isLoading = true
-        Requests().callSignIn(api: apiLogin,email: self.email, password: self.password) {(resultLogin) in
-            self.isLoading = false
-            print("resultLogin \(String(describing: resultLogin))")
-            if resultLogin != nil {
-                
-                self.isLogined = true
-                // self.loginInfo = resultLogin!
-                
-            } else {
-                self.isLogined = false
-                self.showingAlert = true
-            }
+        let body: [String : Any] = ["email": self.email,"password": self.password]
+        let networkManager = NetworkManager(data: body, url: nil, service: .login, method: .post)
+            networkManager.executeQuery(){
+                         (result: Result<LoginModel,Error>) in
+                        self.isLoading = false
+                         switch result{
+                         case .success(let response):
+                             self.isLogined = true
+                             networkManager.setToken(accessToken: response.accessToken)
+                         case .failure(let error):
+                             print(error)
+                         }
         }
-    }
-    
-    init() {
-        isEmailValidPublisher
-            .receive(on: RunLoop.main)
-            .map {
-                valid in
-                valid ? "" : Strings.emailInvalid.rawValue
-            }
-            .assign(to: \.messageEmailErr, on: self)
-            .store(in: &cancellableSet)
-        
-        isPasswordValidPublisher
-            .receive(on: RunLoop.main)
-            .map {
-                valid in
-                valid ? "" : Strings.requiredField.rawValue
-            }
-            .assign(to: \.messagePasswordErr, on: self)
-            .store(in: &cancellableSet)
-        
-        isValidForm
-            .receive(on: RunLoop.main)
-            .assign(to: \.isValid, on: self)
-            .store(in: &cancellableSet)
     }
 }

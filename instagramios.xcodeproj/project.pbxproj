@@ -28,7 +28,6 @@
 		CC493F25277DE8AC00DE1369 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC493F24277DE8AC00DE1369 /* UserModel.swift */; };
 		CC72D12D2768A67D0071BF00 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12C2768A67D0071BF00 /* Loading.swift */; };
 		CC72D1302768B04E0071BF00 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12F2768B04D0071BF00 /* NetworkService.swift */; };
-		CC72D1322768B0940071BF00 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D1312768B0940071BF00 /* Api.swift */; };
 		CC72D1342768E6640071BF00 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D1332768E6640071BF00 /* AuthModel.swift */; };
 		CC98E582276B9E230067FDC8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC98E581276B9E230067FDC8 /* NetworkManager.swift */; };
 		CCAA571E276BAE2C006A1D19 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA571D276BAE2C006A1D19 /* MockData.swift */; };
@@ -53,6 +52,7 @@
 		CCE9D89A27762E53000C34E2 /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9D89927762E53000C34E2 /* CommonModel.swift */; };
 		CCE9D89C277633AF000C34E2 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9D89B277633AF000C34E2 /* ProfileViewModel.swift */; };
 		CCEB698227675889000BB0D7 /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEB698127675889000BB0D7 /* ActivityModel.swift */; };
+		CCFB20382858E7BE00420F67 /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFB20372858E7BE00420F67 /* AuthResponseModel.swift */; };
 		CCFC5DEC27650FEC00CE3D1B /* ItemPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC5DEB27650FEC00CE3D1B /* ItemPost.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +79,6 @@
 		CC493F24277DE8AC00DE1369 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CC72D12C2768A67D0071BF00 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CC72D12F2768B04D0071BF00 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		CC72D1312768B0940071BF00 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		CC72D1332768E6640071BF00 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		CC98E581276B9E230067FDC8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CCAA571D276BAE2C006A1D19 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		CCE9D89B277633AF000C34E2 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		CCEB698127675889000BB0D7 /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
 		CCF6F896277E12BC003CA96A /* instagramios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = instagramios.entitlements; sourceTree = "<group>"; };
+		CCFB20372858E7BE00420F67 /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
 		CCFC5DEB27650FEC00CE3D1B /* ItemPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPost.swift; sourceTree = "<group>"; };
 		E38C6EF0687683AC67518E17 /* Pods_instagramios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instagramios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEB6BE0F12E33396BDC75743 /* Pods-instagramios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instagramios.release.xcconfig"; path = "Target Support Files/Pods-instagramios/Pods-instagramios.release.xcconfig"; sourceTree = "<group>"; };
@@ -226,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				CC72D12F2768B04D0071BF00 /* NetworkService.swift */,
-				CC72D1312768B0940071BF00 /* Api.swift */,
 				CC98E581276B9E230067FDC8 /* NetworkManager.swift */,
 			);
 			path = network;
@@ -241,6 +240,7 @@
 				CCE9D89927762E53000C34E2 /* CommonModel.swift */,
 				CC493F24277DE8AC00DE1369 /* UserModel.swift */,
 				CC1B83BE277DF9C800F697E4 /* PostModel.swift */,
+				CCFB20372858E7BE00420F67 /* AuthResponseModel.swift */,
 			);
 			name = model;
 			path = instagramios/model;
@@ -409,7 +409,6 @@
 				CC45E2AD276EE1C900B75AF5 /* VideoModel.swift in Sources */,
 				CC38DC21277395BE00507C82 /* ItemActivity.swift in Sources */,
 				CCFC5DEC27650FEC00CE3D1B /* ItemPost.swift in Sources */,
-				CC72D1322768B0940071BF00 /* Api.swift in Sources */,
 				CCE32600276752E90064B51A /* HomeTabView.swift in Sources */,
 				CCE3260A276752E90064B51A /* SignInViewModel.swift in Sources */,
 				08ACD32027619FB30016046C /* Validation.swift in Sources */,
@@ -427,6 +426,7 @@
 				CC38DC1D277387EF00507C82 /* ImageGrid.swift in Sources */,
 				CC1B83BF277DF9C800F697E4 /* PostModel.swift in Sources */,
 				CCE017B62776132600C7B698 /* SearchTabViewModel.swift in Sources */,
+				CCFB20382858E7BE00420F67 /* AuthResponseModel.swift in Sources */,
 				CCE32601276752E90064B51A /* CommunicateView.swift in Sources */,
 				08F6144927619F2700D226DB /* instagramiosApp.swift in Sources */,
 				CCE32606276752E90064B51A /* SignUpView.swift in Sources */,

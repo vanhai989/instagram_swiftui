@@ -40,7 +40,7 @@ enum Strings: String {
          follow = "Follow",
          following = "Following",
          activity = "Activity",
-         userName = "Pankaj Gaikar",
+         userName = "Hai dev",
          buttonEdit = "Edit Profile",
          buttonSaved = "Saved"
 }

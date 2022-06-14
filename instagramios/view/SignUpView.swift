@@ -30,9 +30,6 @@ struct SignUpView: View {
                         CustomTextField(isSecure: true, placeholder: Text(Strings.password.rawValue).foregroundColor(.white).font(.headline),
                                         field: $viewModel.password, prompt: viewModel.messagePasswordErr)
                         
-                        CustomTextField(isSecure: false, placeholder: Text(Strings.fullname.rawValue).foregroundColor(.white).font(.headline),
-                                        field: $viewModel.fullname, prompt: viewModel.messagefullnameErr)
-                        
                         CustomTextField(isSecure: false, placeholder: Text(Strings.username.rawValue).foregroundColor(.white).font(.headline),
                                         field: $viewModel.username, prompt: viewModel.messageUsernameErr)
                         

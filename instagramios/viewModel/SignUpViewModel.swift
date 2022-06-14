@@ -6,21 +6,16 @@
 //
 
 import Foundation
-
 import Combine
 
 class SignUpViewModel: ObservableObject
 {
     @Published var email = ""
     @Published var password = ""
-    @Published var fullname = ""
     @Published var username = ""
-    
     @Published var messageEmailErr = ""
     @Published var messageUsernameErr = ""
-    @Published var messagefullnameErr = ""
     @Published var messagePasswordErr = ""
-    
     @Published var isLoading: Bool = false
     @Published var showingAlert = false
     @Published var isSignUpSuccess: Bool = false
@@ -75,26 +70,11 @@ class SignUpViewModel: ObservableObject
             }
             .eraseToAnyPublisher()
     }
-    
-    private var isFullnameValidPublisher: AnyPublisher<Bool, Never> {
-        $fullname
-            .debounce(for: 0.2, scheduler: RunLoop.main)
-            .removeDuplicates()
-            .map {
-                value in
-                if value.isEmpty {
-                    return false
-                } else {
-                    return true
-                }
-            }
-            .eraseToAnyPublisher()
-    }
 
     private var isValidForm: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest4(isEmailValidPublisher, isPasswordValidPublisher, isUsernameValidPublisher, isFullnameValidPublisher)
-            .map{ isValidEmail, isValidPassword, isUsernameValid, isfullNameValid in
-                isValidEmail && isValidPassword && isUsernameValid && isfullNameValid
+        Publishers.CombineLatest3(isEmailValidPublisher, isPasswordValidPublisher, isUsernameValidPublisher)
+            .map{ isValidEmail, isValidPassword, isUsernameValid in
+                isValidEmail && isValidPassword && isUsernameValid
             }
             .eraseToAnyPublisher()
     }
@@ -105,17 +85,17 @@ class SignUpViewModel: ObservableObject
 
     func onSignUp() -> Void {
         self.isLoading = true
-        Requests().callSignUp(api: apiSignUp,username: self.username, fullname: self.fullname, password: self.password) {(messageSignUp) in
-            self.isLoading = false
-            print("messageSignUp \(String(describing: messageSignUp))")
-            if messageSignUp != nil {
-                self.isSignUpSuccess = true
-                self.showingAlert = true
-            } else {
-                self.showingAlert = true
-                self.isSignUpSuccess = false
-            }
-           
+        let body: [String : Any] = ["email": self.email,"password": self.password, "name": self.username]
+        let networkManager = NetworkManager(data: body, url: nil, service: .signUp, method: .post)
+            networkManager.executeQuery(){
+                         (result: Result<UserModel,Error>) in
+                        self.isLoading = false
+                         switch result{
+                         case .success(_):
+                             self.isSignUpSuccess = true
+                         case .failure(let error):
+                             print(error)
+                         }
         }
     }
     
@@ -145,15 +125,6 @@ class SignUpViewModel: ObservableObject
                 valid ? "" : Strings.requiredField.rawValue
             }
             .assign(to: \.messageUsernameErr, on: self)
-            .store(in: &cancellableSet)
-        
-        isFullnameValidPublisher
-            .receive(on: RunLoop.main)
-            .map {
-                valid in
-                valid ? "" : Strings.requiredField.rawValue
-            }
-            .assign(to: \.messagefullnameErr, on: self)
             .store(in: &cancellableSet)
         
         isValidForm
