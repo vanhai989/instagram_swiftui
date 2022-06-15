@@ -23,7 +23,7 @@ class SignInViewModel: ObservableObject
     @AppStorage(Settings.isLogined.rawValue) var isLogined: Bool = false
     
     init() {
-       
+        
         isEmailValidPublisher
             .receive(on: RunLoop.main)
             .map {
@@ -48,7 +48,7 @@ class SignInViewModel: ObservableObject
             .store(in: &cancellableSet)
         
         if !Connectivity.isConnectedToInternet() {
-               print("internet is not available.")
+            print("internet is not available.")
             return;
         }
         
@@ -88,20 +88,27 @@ class SignInViewModel: ObservableObject
             .eraseToAnyPublisher()
     }
     
+    func cache(token: LoginModel) {
+        let defaults = UserDefaults.standard
+        defaults.set(try? PropertyListEncoder().encode(token), forKey: "accessToken")
+        defaults.synchronize()
+    }
+    
     func login() {
         self.isLoading = true
         let body: [String : Any] = ["email": self.email,"password": self.password]
-        let networkManager = NetworkManager(data: body, url: nil, service: .login, method: .post)
-            networkManager.executeQuery(){
-                         (result: Result<LoginModel,Error>) in
-                        self.isLoading = false
-                         switch result{
-                         case .success(let response):
-                             self.isLogined = true
-                             networkManager.setToken(accessToken: response.accessToken)
-                         case .failure(let error):
-                             print(error)
-                         }
+        let networkManager = NetworkManager(data: body, url: nil, service: .sessions, method: .post)
+        networkManager.executeQuery(){
+            (result: Result<LoginModel,Error>) in
+            self.isLoading = false
+            switch result{
+            case .success(let response):
+                self.isLogined = true
+                self.cache(token: response)
+                
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

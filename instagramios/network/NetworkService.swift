@@ -9,16 +9,17 @@ import Foundation
 // MARK: services
 enum services :String{
     case healthcheck = "healthcheck"
-    case login = "api/sessions"
+    case sessions = "api/sessions"
     case signUp = "api/users"
+    case getPosts = "api/instagramposts"
 }
 
 // MARK: baseURL
 var baseURL: String {
     switch NetworkManager.networkEnviroment {
-        case .dev: return "http://127.0.0.1:3000/"
-        case .production: return "http://127.0.0.1:3000/"
-        case .stage: return "http://127.0.0.1:3000/"
+    case .dev: return "http://127.0.0.1:3000/"
+    case .production: return "http://127.0.0.1:3000/"
+    case .stage: return "http://127.0.0.1:3000/"
     }
 }
 

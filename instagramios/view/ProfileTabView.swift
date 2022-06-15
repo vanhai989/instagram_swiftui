@@ -9,79 +9,90 @@ import SwiftUI
 
 struct ProfileTabView: View {
     @ObservedObject var viewModel: ProfileViewModel = ProfileViewModel()
+    @State var onSignOut: Bool = false
     
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .center) {
-                        AsyncImage(url: URL(string: imageRandom)) { image in
-                            image.resizable()
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .cornerRadius(50)
-                                .clipped()
-                        } placeholder: {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                .frame(maxWidth: 50, maxHeight: 50)
-                        }
-                        .padding()
-                        
-                        Spacer()
-                        ForEach(MockData().followingData) { value in
-                            FollowItem(numberFollow: value.followNumber, followType: value.followType)
+            Loading(isShowing: $viewModel.isLoading) {
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .center) {
+                            AsyncImage(url: URL(string: imageRandom)) { image in
+                                image.resizable()
+                                    .frame(width: 100, height: 100, alignment: .center)
+                                    .cornerRadius(50)
+                                    .clipped()
+                            } placeholder: {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                    .frame(maxWidth: 50, maxHeight: 50)
+                            }
+                            .padding()
+                            
                             Spacer()
+                            ForEach(MockData().followingData) { value in
+                                FollowItem(numberFollow: value.followNumber, followType: value.followType)
+                                Spacer()
+                            }
                         }
+                        .padding(.bottom, 10)
+                        ListInfomationItem(info1: Strings.info1.rawValue, info2: Strings.info2.rawValue, info3: Strings.info3.rawValue, info4: Strings.info4.rawValue, info5: Strings.info5.rawValue, info6: Strings.info6.rawValue)
+                        
+                        HStack(alignment: .center, spacing: 20) {
+                            ButtonText(action: actionButton, buttonText: Strings.buttonEdit.rawValue)
+                            ButtonText(action: actionButton, buttonText: Strings.buttonSaved.rawValue)
+                        }
+                        
+                        HStack(alignment: .center) {
+                            ButtonImage(action: actionButton, image: Images.plus_unselected.rawValue)
+                            Spacer()
+                            ButtonImage(action: actionButton, image: Images.film.rawValue)
+                            Spacer()
+                            ButtonImage(action: actionButton, image: Images.profile.rawValue)
+                        }
+                        .padding(.horizontal, 60)
+                        .padding(.vertical, 10)
+                        
                     }
-                    .padding(.bottom, 10)
-                    ListInfomationItem(info1: Strings.info1.rawValue, info2: Strings.info2.rawValue, info3: Strings.info3.rawValue, info4: Strings.info4.rawValue, info5: Strings.info5.rawValue, info6: Strings.info6.rawValue)
-                    
-                    HStack(alignment: .center, spacing: 20) {
-                        ButtonText(action: actionButton, buttonText: Strings.buttonEdit.rawValue)
-                        ButtonText(action: actionButton, buttonText: Strings.buttonSaved.rawValue)
-                    }
-                    
-                    HStack(alignment: .center) {
-                        ButtonImage(action: actionButton, image: Images.plus_unselected.rawValue)
-                        Spacer()
-                        ButtonImage(action: actionButton, image: Images.film.rawValue)
-                        Spacer()
-                        ButtonImage(action: actionButton, image: Images.profile.rawValue)
-                    }
-                    .padding(.horizontal, 60)
-                    .padding(.vertical, 10)
-                    
+                    .padding(.horizontal, Constants.paddingAppHorizontal)
+                    ImageGrid(numberOfImage: 20)
                 }
-                .padding(.horizontal, Constants.paddingAppHorizontal)
-                ImageGrid(numberOfImage: 20)
-            }
-            
-            .navigationBarTitle("", displayMode: .inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text(Strings.userName.rawValue)
-                        .font(Font.system(size: 20, weight: .bold))
-                        .padding()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Image(Images.plus_unselected.rawValue)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                        Button(action: viewModel.logout) {
-                            Image(Images.list.rawValue)
+                
+                .navigationBarTitle("", displayMode: .inline)
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text(Strings.userName.rawValue)
+                            .font(Font.system(size: 20, weight: .bold))
+                            .padding()
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            Image(Images.plus_unselected.rawValue)
                                 .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(.gray)
                                 .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 30, height: 28)
+                                .frame(width: 30, height: 30)
+                            Button {
+                                viewModel.logout()
+                                onSignOut = true
+                            } label: {
+                                Image(Images.list.rawValue)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.gray)
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .frame(width: 30, height: 28)
+                            }
                         }
                     }
+                })
+                .fullScreenCover(isPresented: $onSignOut) {
+                    let viewModel = SignInViewModel()
+                    SignInView(viewModel: viewModel)
                 }
-            })
+            }
         }
     }
+    
     func actionButton() {
         print("as")
     }

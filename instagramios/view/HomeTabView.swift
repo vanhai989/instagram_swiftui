@@ -10,6 +10,10 @@ import SwiftUI
 struct HomeTabView: View {
     @ObservedObject var viewModel: HomeTabViewModel = HomeTabViewModel()
     
+    init() {
+        viewModel.getPosts()
+    }
+    
     var body: some View {
         NavigationView {
             VStack() {
@@ -54,7 +58,7 @@ struct HomeTabView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack(alignment: .center) {
-                        NavigationLink(destination: CommunicateView()) {
+                        NavigationLink(destination: CreatePosts()) {
                             Image(Images.plus_unselected.rawValue)
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fit)
@@ -71,6 +75,9 @@ struct HomeTabView: View {
                     }
                 }
             })
+            .onAppear {
+                print(UserDefaults.standard.string(forKey: "accessToken") ?? "")
+            }
         }
     }
 }

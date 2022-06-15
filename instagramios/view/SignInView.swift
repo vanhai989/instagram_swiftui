@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SignInView: View {
     @ObservedObject var viewModel: SignInViewModel = SignInViewModel()

@@ -12,16 +12,17 @@ struct HeathModel: Codable {
 }
 
 struct LoginModel: Codable {
-        var accessToken: String
-        var refreshToken: String
-        var user: UserModel
+        var accessToken: String?
+        var refreshToken: String?
+        var user: UserModel?
 }
 
+
 struct UserModel: Codable {
-    var _id: String
-    var email: String
-    var name: String
-    var createdAt: String
-    var updatedAt: String
-    var __v: Int
+    var _id: String?
+    var email: String?
+    var name: String?
+    var createdAt: String?
+    var updatedAt: String?
+    var __v: Int?
 }
