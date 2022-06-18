@@ -9,25 +9,27 @@ import SwiftUI
 
 struct ProfileTabView: View {
     @ObservedObject var viewModel: ProfileViewModel = ProfileViewModel()
-    @State var onSignOut: Bool = false
-    
+    @State private var isShowPhotoLibrary = false
+    @State var image = UIImage()
     var body: some View {
         NavigationView {
             Loading(isShowing: $viewModel.isLoading) {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center) {
-                            AsyncImage(url: URL(string: imageRandom)) { image in
-                                image.resizable()
-                                    .frame(width: 100, height: 100, alignment: .center)
-                                    .cornerRadius(50)
-                                    .clipped()
-                            } placeholder: {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                    .frame(maxWidth: 50, maxHeight: 50)
+                            Button(action: {self.isShowPhotoLibrary = true}) {
+                                AsyncImage(url: URL(string: viewModel.user.user?.avatar ?? imageRandom)) { image in
+                                    image.resizable()
+                                        .frame(width: 100, height: 100, alignment: .center)
+                                        .cornerRadius(50)
+                                        .clipped()
+                                } placeholder: {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                        .frame(maxWidth: 50, maxHeight: 50)
+                                }
+                                .padding()
                             }
-                            .padding()
                             
                             Spacer()
                             ForEach(MockData().followingData) { value in
@@ -59,9 +61,14 @@ struct ProfileTabView: View {
                 }
                 
                 .navigationBarTitle("", displayMode: .inline)
+                .sheet(isPresented: $isShowPhotoLibrary) {
+                    ImagePicker(sourceType: .photoLibrary) { image in
+                        self.image = image
+                    }
+                }
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Text(Strings.userName.rawValue)
+                        Text(viewModel.user.user?.name ?? "Hải dev")
                             .font(Font.system(size: 20, weight: .bold))
                             .padding()
                     }
@@ -73,7 +80,6 @@ struct ProfileTabView: View {
                                 .frame(width: 30, height: 30)
                             Button {
                                 viewModel.logout()
-                                onSignOut = true
                             } label: {
                                 Image(Images.list.rawValue)
                                     .resizable()
@@ -85,7 +91,7 @@ struct ProfileTabView: View {
                         }
                     }
                 })
-                .fullScreenCover(isPresented: $onSignOut) {
+                .fullScreenCover(isPresented: $viewModel.onSignOut) {
                     let viewModel = SignInViewModel()
                     SignInView(viewModel: viewModel)
                 }
@@ -98,11 +104,11 @@ struct ProfileTabView: View {
     }
 }
 
-struct ProfileTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileTabView()
-    }
-}
+//struct ProfileTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileTabView()
+//    }
+//}
 
 struct FollowItem: View {
     var numberFollow: String

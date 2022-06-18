@@ -8,18 +8,35 @@
 import SwiftUI
 import AlertToast
 
+
+class Alerter: ObservableObject {
+    @Published var alert: Alert? {
+        didSet { isShowingAlert = alert != nil }
+    }
+    @Published var isShowingAlert = false
+}
+
 @main
 struct instagramiosApp: App {
-    @State private var showToast = true
+    @StateObject var alerter: Alerter = Alerter()
+    @State private var showToast = false
     var body: some Scene {
         WindowGroup {
             if UserDefaults.standard.object(forKey: "accessToken") == nil {
-                SignInView().environmentObject(SignInViewModel()).toast(isPresenting: $showToast) {
+                SignInView().toast(isPresenting: $showToast) {
                     AlertToast(type: .regular, title: "Message Sent!")
                 }
+                    
+//                    .environmentObject(alerter)
+//                    .alert(isPresented: $alerter.isShowingAlert) {
+//                        alerter.alert ?? Alert(title: Text(""))
+//                    }
             }
             else {
-                BottomStack()
+                BottomStack().environmentObject(alerter)
+                    .alert(isPresented: $alerter.isShowingAlert) {
+                        alerter.alert ?? Alert(title: Text(""))
+                    }
             }
         }
     }

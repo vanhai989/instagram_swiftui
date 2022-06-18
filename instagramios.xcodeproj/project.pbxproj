@@ -28,11 +28,15 @@
 		CC45E2AD276EE1C900B75AF5 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45E2AC276EE1C900B75AF5 /* VideoModel.swift */; };
 		CC45E2B2276EEDFF00B75AF5 /* demo2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CC45E2B0276EEDFF00B75AF5 /* demo2.mp4 */; };
 		CC493F25277DE8AC00DE1369 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC493F24277DE8AC00DE1369 /* UserModel.swift */; };
+		CC6744DD285B6912009F9A39 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6744DC285B6911009F9A39 /* ImagePicker.swift */; };
 		CC72D12D2768A67D0071BF00 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12C2768A67D0071BF00 /* Loading.swift */; };
 		CC72D1302768B04E0071BF00 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12F2768B04D0071BF00 /* NetworkService.swift */; };
 		CC72D1342768E6640071BF00 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D1332768E6640071BF00 /* AuthModel.swift */; };
 		CC73DB54285A3EE8008AEBDD /* CreatePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */; };
 		CC73DB56285A448D008AEBDD /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC73DB55285A448C008AEBDD /* CreatePostViewModel.swift */; };
+		CC82E34C285D8EB000BB08EB /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC82E34B285D8EB000BB08EB /* helper.swift */; };
+		CC82E34E285DD42F00BB08EB /* QuickLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */; };
+		CC82E350285DD4A600BB08EB /* QuickLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC82E34F285DD4A600BB08EB /* QuickLoginViewModel.swift */; };
 		CC98E582276B9E230067FDC8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC98E581276B9E230067FDC8 /* NetworkManager.swift */; };
 		CCAA571E276BAE2C006A1D19 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA571D276BAE2C006A1D19 /* MockData.swift */; };
 		CCAA5722276E4922006A1D19 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA5721276E4922006A1D19 /* SearchBar.swift */; };
@@ -82,11 +86,15 @@
 		CC45E2AC276EE1C900B75AF5 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		CC45E2B0276EEDFF00B75AF5 /* demo2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo2.mp4; sourceTree = "<group>"; };
 		CC493F24277DE8AC00DE1369 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		CC6744DC285B6911009F9A39 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CC72D12C2768A67D0071BF00 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CC72D12F2768B04D0071BF00 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CC72D1332768E6640071BF00 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePosts.swift; sourceTree = "<group>"; };
 		CC73DB55285A448C008AEBDD /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
+		CC82E34B285D8EB000BB08EB /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
+		CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginView.swift; sourceTree = "<group>"; };
+		CC82E34F285DD4A600BB08EB /* QuickLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginViewModel.swift; sourceTree = "<group>"; };
 		CC98E581276B9E230067FDC8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CCAA571D276BAE2C006A1D19 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		CCAA5721276E4922006A1D19 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -137,6 +145,7 @@
 				086089C52761C13B001E8CD6 /* Constants.swift */,
 				CC049CD527678F1800B9B79B /* Strings.swift */,
 				CCAA571D276BAE2C006A1D19 /* MockData.swift */,
+				CC82E34B285D8EB000BB08EB /* helper.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -155,6 +164,7 @@
 				CC38DC1C277387EF00507C82 /* ImageGrid.swift */,
 				CC38DC1E27738AFC00507C82 /* ButtonImage.swift */,
 				CC38DC20277395BE00507C82 /* ItemActivity.swift */,
+				CC6744DC285B6911009F9A39 /* ImagePicker.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -269,6 +279,7 @@
 				CCE325F8276752E90064B51A /* SignUpView.swift */,
 				CC3F67B12859E30F007F885F /* ToastView.swift */,
 				CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */,
+				CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */,
 			);
 			name = view;
 			path = instagramios/view;
@@ -284,6 +295,7 @@
 				CCE017B72776177200C7B698 /* ActivityTabViewModel.swift */,
 				CCE9D89B277633AF000C34E2 /* ProfileViewModel.swift */,
 				CC73DB55285A448C008AEBDD /* CreatePostViewModel.swift */,
+				CC82E34F285DD4A600BB08EB /* QuickLoginViewModel.swift */,
 			);
 			name = viewModel;
 			path = instagramios/viewModel;
@@ -418,12 +430,14 @@
 				08ACD33927619FEB0016046C /* CustomTextField.swift in Sources */,
 				CC72D1302768B04E0071BF00 /* NetworkService.swift in Sources */,
 				CCE32605276752E90064B51A /* ProfileTabView.swift in Sources */,
+				CC82E34E285DD42F00BB08EB /* QuickLoginView.swift in Sources */,
 				CCAA5722276E4922006A1D19 /* SearchBar.swift in Sources */,
 				CC38DC1F27738AFC00507C82 /* ButtonImage.swift in Sources */,
 				CCC8C5B82763BF3E0082E4B1 /* HeaderView.swift in Sources */,
 				CCE32607276752E90064B51A /* SignUpViewModel.swift in Sources */,
 				08ACD33727619FEB0016046C /* CustomButton.swift in Sources */,
 				CC45E2AD276EE1C900B75AF5 /* VideoModel.swift in Sources */,
+				CC6744DD285B6912009F9A39 /* ImagePicker.swift in Sources */,
 				CC38DC21277395BE00507C82 /* ItemActivity.swift in Sources */,
 				CCFC5DEC27650FEC00CE3D1B /* ItemPost.swift in Sources */,
 				CCE32600276752E90064B51A /* HomeTabView.swift in Sources */,
@@ -432,6 +446,7 @@
 				CC493F25277DE8AC00DE1369 /* UserModel.swift in Sources */,
 				CC73DB56285A448D008AEBDD /* CreatePostViewModel.swift in Sources */,
 				CC98E582276B9E230067FDC8 /* NetworkManager.swift in Sources */,
+				CC82E350285DD4A600BB08EB /* QuickLoginViewModel.swift in Sources */,
 				CCEB698227675889000BB0D7 /* ActivityModel.swift in Sources */,
 				CCE9D89A27762E53000C34E2 /* CommonModel.swift in Sources */,
 				CCE9D89C277633AF000C34E2 /* ProfileViewModel.swift in Sources */,
@@ -450,6 +465,7 @@
 				08F6144927619F2700D226DB /* instagramiosApp.swift in Sources */,
 				CC73DB54285A3EE8008AEBDD /* CreatePosts.swift in Sources */,
 				CCE32606276752E90064B51A /* SignUpView.swift in Sources */,
+				CC82E34C285D8EB000BB08EB /* helper.swift in Sources */,
 				CCE32604276752E90064B51A /* SearchTabView.swift in Sources */,
 				086089C62761C13B001E8CD6 /* Constants.swift in Sources */,
 				CCE325FE276752E90064B51A /* BottomStack.swift in Sources */,

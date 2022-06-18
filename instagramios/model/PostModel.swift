@@ -6,13 +6,20 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
-struct Post: Identifiable, Codable{
-    var id: String? = UUID().uuidString
-    var username: String?
-    var nameImage: String?
-    var postImage: String?
-    var contentPost: String?
-    var createdAt: String?
-    var updatedAt: String?
+// MARK: - Post
+struct PostModel: Codable, Hashable {
+    let id, username, nameImage: String
+    let postImage: String
+    let contentPost, user: String
+    let v: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case username, nameImage, postImage, contentPost, user
+        case v = "__v"
+    }
 }
+

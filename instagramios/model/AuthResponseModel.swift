@@ -22,6 +22,7 @@ struct UserModel: Codable {
     var _id: String?
     var email: String?
     var name: String?
+    var avatar: String?
     var createdAt: String?
     var updatedAt: String?
     var __v: Int?

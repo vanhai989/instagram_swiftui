@@ -12,6 +12,8 @@ enum services :String{
     case sessions = "api/sessions"
     case signUp = "api/users"
     case getPosts = "api/instagramposts"
+    case createPosts = "api/instagrampost"
+    case updateAvatar = "api/user"
 }
 
 // MARK: baseURL

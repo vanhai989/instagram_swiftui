@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CreatePosts: View {
+    @State private var isShowPhotoLibrary = false
     @ObservedObject var viewModel: CreatePostViewModel = CreatePostViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @State var image = UIImage()
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
     }) {
@@ -18,7 +19,7 @@ struct CreatePosts: View {
             Image("ic_back")
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.white)
-            Text("Go back")
+            Text("Go back").foregroundColor(.white)
         }
     }
     }
@@ -27,30 +28,50 @@ struct CreatePosts: View {
             
             Loading(isShowing: $viewModel.isLoading) {
                 VStack {
-                    Button(action: {viewModel.selectImage()}) {
-                        Image(Images.imagePlus.rawValue)
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(.white)
-                            .frame(width: 150, height: 150)
+                    Button(action: {self.isShowPhotoLibrary = true}) {
+//                        Image(Images.imagePlus.rawValue)
+//                            .resizable()
+//                            .renderingMode(.template)
+//                            .foregroundColor(.white)
+//                            .frame(width: 150, height: 150)
+                        Text("Choose image")
                     }
                     
-                    CustomTextField(isSecure: false, placeholder: Text(Strings.email.rawValue).foregroundColor(.white).font(.headline),
-                                    field: $viewModel.username, prompt: viewModel.messageUsernameErr)
+                    Image(uiImage: self.image).resizable().scaledToFit().frame(width: 200, height: 200, alignment: .center)
                     
-                    CustomTextField( isSecure: false, placeholder: Text(Strings.password.rawValue).foregroundColor(.white).font(.headline),
-                                    field: $viewModel.contentPost,  prompt: viewModel.messageContentPostErr)
+                
+                    TextEditor(text: $viewModel.contentPostValue)
+                        .foregroundColor(.secondary)
+                    Text(viewModel.messageContentPostErr).foregroundColor(.red)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .font(.caption)
+                        .frame(height: 3)
                     Spacer()
-                        
+                    Button(action: {viewModel.submit(image: self.image)}) {
+                        Text("Submit")
+                            .frame(minWidth: 200, maxWidth: .infinity)
+                            .padding()
+                            .background( Color(.purple).opacity(0.5) )
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .font(.system(size: 20))
+                            .cornerRadius(5)
+                    }
+                    
+                    
                 }
                 .padding()
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.purple, .blue]), startPoint: .top, endPoint: .bottom)
                         .edgesIgnoringSafeArea(.all))
-                
+                .sheet(isPresented: $isShowPhotoLibrary) {
+                    ImagePicker(sourceType: .photoLibrary) { image in
+                        self.image = image
+                    }
+                }
             }
-
-//                   .navigationBarItems(leading: btnBack)
+            
+            //                   .navigationBarItems(leading: btnBack)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
                     btnBack
@@ -58,6 +79,7 @@ struct CreatePosts: View {
                 ToolbarItem(placement: .principal) {
                     Text("Create post")
                         .font(.largeTitle)
+                        .foregroundColor(.blue)
                 }
             })
         }
@@ -67,8 +89,8 @@ struct CreatePosts: View {
     
 }
 
-struct CreatePosts_Previews: PreviewProvider {
-    static var previews: some View {
-        CreatePosts()
-    }
-}
+//struct CreatePosts_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreatePosts()
+//    }
+//}

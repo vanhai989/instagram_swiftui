@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemPost: View {
-    let post: Post
+    let post: PostModel
     let likeAction: () -> Void
     let clickMoreAction: () -> Void
     let commentAction: () -> Void
@@ -19,7 +19,7 @@ struct ItemPost: View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
                 HStack(alignment: .center, spacing: 10){
-                    AsyncImage(url: URL(string: post.postImage ?? "https://picsum.photos/200")) { image in
+                    AsyncImage(url: URL(string: post.postImage )) { image in
                         image.resizable()
                     } placeholder: {
                         ProgressView()
@@ -28,7 +28,7 @@ struct ItemPost: View {
                     .frame(width: 30, height: 30)
                     .clipShape(Circle())
                     
-                    Text(post.username ?? "none")
+                    Text(post.username )
                         .font(.system(size: 14, weight: .bold))
                 }
                 Spacer()
@@ -42,7 +42,7 @@ struct ItemPost: View {
             }
             .padding(.horizontal, 10)
             
-            AsyncImage(url: URL(string: post.postImage ?? "https://picsum.photos/200")) { image in
+            AsyncImage(url: URL(string: post.postImage )) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()

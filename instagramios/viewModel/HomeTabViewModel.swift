@@ -6,22 +6,35 @@
 //
 
 import Foundation
+import SwiftUI
 
 class HomeTabViewModel: ObservableObject
 {
+    @EnvironmentObject var alerter: Alerter
     @Published var users: [User] = MockData().users
-    @Published var posts: [Post] = [Post(username: "", nameImage: "", postImage: "", contentPost: "", createdAt: "", updatedAt: "")]
+    @Published var posts: [PostModel] = []
+    @State var isReLogin: Bool = false
     
     func getPosts () {
         NetworkManager(data: [:], url: nil, service: .getPosts, method: .get, isJSONRequest: false).executeQuery(){
             
-            (result: Result<[Post],Error>) in
+            (result: Result<[PostModel],Error>) in
             switch result{
             case .success(let response):
+                print("response", response)
                 self.posts = response
+//                self.alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
             case .failure(let error):
                 print(error)
-                
+                let errorCode = (error as NSError).code
+                if (errorCode == 403) {
+//                    self.alerter.alert = Alert(title: Text("Thông báo!"), message: Text("Phiên làm việc của bạn đã hết hạn"), primaryButton: .destructive(Text("Quick login")) {
+//                        print("Quick login...")
+//                        self.isReLogin = true
+//                    },
+//                                               secondaryButton: .cancel())
+//                    self.alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
+                }
             }
         }
     }

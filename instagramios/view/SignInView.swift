@@ -10,6 +10,7 @@ import AlertToast
 
 struct SignInView: View {
     @ObservedObject var viewModel: SignInViewModel = SignInViewModel()
+    @EnvironmentObject var alerter: Alerter
     
     var body: some View {
         NavigationView {
@@ -28,6 +29,16 @@ struct SignInView: View {
                     
                     CustomButtonView(destinationView: AnyView(BottomStack()), disable: !viewModel.isValid, buttonName: Strings.login.rawValue, action: viewModel.login, isActiveNavigate: $viewModel.isLogined)
                     
+//                    Button("show alert") {
+//                        alerter.alert = Alert(title: Text("Something is wrong!"), message: Text("Phiên làm việc của bạn đã hết hạn"), primaryButton: .destructive(Text("Quick login")) {
+//                            print("Quick login...")
+//                        },
+//                                                   secondaryButton: .cancel())
+//                    }
+//                    Button("show alert") {
+//                               alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
+//                           }
+
                     NavigationLinkHorizontal(title: Strings.forgotPassword.rawValue, labelButton: Strings.helpSignIn.rawValue, viewDestination: AnyView( ForgotPasswordView()))
                     
                     Spacer()
@@ -57,8 +68,8 @@ struct SignInView: View {
 }
 
 
-struct SigninView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
-    }
-}
+//struct SigninView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignInView()
+//    }
+//}

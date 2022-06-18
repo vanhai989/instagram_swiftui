@@ -30,7 +30,7 @@ struct HomeTabView: View {
                         }
                         ScrollView {
                             LazyVStack {
-                                ForEach(viewModel.posts) { post in
+                                ForEach(viewModel.posts, id: \.self) { post in
                                     ItemPost(
                                         post: post,
                                         likeAction: {viewModel.likeAction()},
@@ -75,16 +75,16 @@ struct HomeTabView: View {
                     }
                 }
             })
-            .onAppear {
-                print(UserDefaults.standard.string(forKey: "accessToken") ?? "")
+            .fullScreenCover(isPresented: $viewModel.isReLogin) {
+                QuickLoginView(viewModel: QuickLoginViewModel())
             }
         }
     }
 }
 
-struct HomeTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeTabView()
-    }
-}
+//struct HomeTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeTabView()
+//    }
+//}
 

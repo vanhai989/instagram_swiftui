@@ -88,12 +88,6 @@ class SignInViewModel: ObservableObject
             .eraseToAnyPublisher()
     }
     
-    func cache(token: LoginModel) {
-        let defaults = UserDefaults.standard
-        defaults.set(try? PropertyListEncoder().encode(token), forKey: "accessToken")
-        defaults.synchronize()
-    }
-    
     func login() {
         self.isLoading = true
         let body: [String : Any] = ["email": self.email,"password": self.password]
@@ -104,8 +98,7 @@ class SignInViewModel: ObservableObject
             switch result{
             case .success(let response):
                 self.isLogined = true
-                self.cache(token: response)
-                
+                cacheToken(token: response)
             case .failure(let error):
                 print(error)
             }
