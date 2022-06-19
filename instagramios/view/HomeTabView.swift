@@ -9,9 +9,11 @@ import SwiftUI
 
 struct HomeTabView: View {
     @ObservedObject var viewModel: HomeTabViewModel = HomeTabViewModel()
+    @EnvironmentObject var alerter: Alerter
     
     init() {
         viewModel.getPosts()
+        viewModel.getUsers()
     }
     
     var body: some View {
@@ -21,12 +23,15 @@ struct HomeTabView: View {
                     VStack {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(viewModel.users) { user in
+                                ForEach(viewModel.users,  id: \.self) { user in
                                     ImageCircle(user: user)
                                 }
                             }
                             .padding(.horizontal, 10)
                             .frame(maxHeight: .infinity)
+                        }
+                        NavigationLink(destination: AnyView(QuickLoginView(viewModel: QuickLoginViewModel())), isActive: $viewModel.navigateToQuickLogin) {
+                            Text("")
                         }
                         ScrollView {
                             LazyVStack {
@@ -77,6 +82,9 @@ struct HomeTabView: View {
             })
             .fullScreenCover(isPresented: $viewModel.isReLogin) {
                 QuickLoginView(viewModel: QuickLoginViewModel())
+            }
+            .onAppear {
+                self.viewModel.setupEnviroment(alerter: self.alerter)
             }
         }
     }

@@ -12,6 +12,8 @@ struct CreatePosts: View {
     @ObservedObject var viewModel: CreatePostViewModel = CreatePostViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var image = UIImage()
+    @EnvironmentObject var alerter: Alerter
+    
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
     }) {
@@ -39,6 +41,9 @@ struct CreatePosts: View {
                     
                     Image(uiImage: self.image).resizable().scaledToFit().frame(width: 200, height: 200, alignment: .center)
                     
+                    NavigationLink(destination: AnyView(QuickLoginView(viewModel: QuickLoginViewModel())), isActive: $viewModel.navigateToQuickLogin) {
+                        Text("")
+                    }
                 
                     TextEditor(text: $viewModel.contentPostValue)
                         .foregroundColor(.secondary)
@@ -70,8 +75,6 @@ struct CreatePosts: View {
                     }
                 }
             }
-            
-            //                   .navigationBarItems(leading: btnBack)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
                     btnBack
@@ -85,6 +88,9 @@ struct CreatePosts: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            self.viewModel.setupEnviroment(alerter: self.alerter)
+        }
     }
     
 }

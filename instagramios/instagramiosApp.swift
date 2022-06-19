@@ -19,21 +19,18 @@ class Alerter: ObservableObject {
 @main
 struct instagramiosApp: App {
     @StateObject var alerter: Alerter = Alerter()
-    @State private var showToast = false
     var body: some Scene {
         WindowGroup {
             if UserDefaults.standard.object(forKey: "accessToken") == nil {
-                SignInView().toast(isPresenting: $showToast) {
-                    AlertToast(type: .regular, title: "Message Sent!")
-                }
-                    
-//                    .environmentObject(alerter)
-//                    .alert(isPresented: $alerter.isShowingAlert) {
-//                        alerter.alert ?? Alert(title: Text(""))
-//                    }
+                SignInView()
+                    .environmentObject(alerter)
+                    .alert(isPresented: $alerter.isShowingAlert) {
+                        alerter.alert ?? Alert(title: Text(""))
+                    }
             }
             else {
-                BottomStack().environmentObject(alerter)
+                BottomStack()
+                    .environmentObject(alerter)
                     .alert(isPresented: $alerter.isShowingAlert) {
                         alerter.alert ?? Alert(title: Text(""))
                     }

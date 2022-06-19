@@ -19,7 +19,7 @@ struct ItemPost: View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
                 HStack(alignment: .center, spacing: 10){
-                    AsyncImage(url: URL(string: post.postImage )) { image in
+                    AsyncImage(url: URL(string: post.avatar ?? imageRandom)) { image in
                         image.resizable()
                     } placeholder: {
                         ProgressView()
@@ -28,7 +28,7 @@ struct ItemPost: View {
                     .frame(width: 30, height: 30)
                     .clipShape(Circle())
                     
-                    Text(post.username )
+                    Text(post.username ?? "")
                         .font(.system(size: 14, weight: .bold))
                 }
                 Spacer()
@@ -42,7 +42,7 @@ struct ItemPost: View {
             }
             .padding(.horizontal, 10)
             
-            AsyncImage(url: URL(string: post.postImage )) { image in
+            AsyncImage(url: URL(string: post.postImage ?? ""  )) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
@@ -89,9 +89,10 @@ struct ItemPost: View {
                     .font(.system(size: 13, weight: .bold))
             }
             .padding(.horizontal, 10)
-        }.onAppear {
-            print("post.postImage", post.postImage ?? "")
         }
+//        .onAppear {
+//            print("post.avatar", post.avatar ?? "")
+//        }
     }
 }
 

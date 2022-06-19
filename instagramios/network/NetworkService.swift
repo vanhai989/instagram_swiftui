@@ -10,10 +10,13 @@ import Foundation
 enum services :String{
     case healthcheck = "healthcheck"
     case sessions = "api/sessions"
-    case signUp = "api/users"
+    case refreshToken = "api/refreshToken"
+    case users = "api/users"
     case getPosts = "api/instagramposts"
     case createPosts = "api/instagrampost"
     case updateAvatar = "api/user"
+    case emptyEnpoint = ""
+    
 }
 
 // MARK: baseURL

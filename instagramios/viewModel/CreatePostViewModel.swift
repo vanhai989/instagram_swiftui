@@ -15,11 +15,12 @@ class CreatePostViewModel: ObservableObject
     @Published var isLoading: Bool = false
     @Published var messageContentPostErr = ""
     @Published var isValid = false
+    @Published var navigateToQuickLogin = false
     
     private var cancellableSet: Set<AnyCancellable> = []
-    @EnvironmentObject var alerter: Alerter
+    var alerter: Alerter?
     init() {
-  
+        
         isContentPostValidPublisher
             .receive(on: RunLoop.main)
             .map {
@@ -34,6 +35,10 @@ class CreatePostViewModel: ObservableObject
             return;
         }
         
+    }
+    
+    func setupEnviroment(alerter: Alerter) {
+        self.alerter = alerter
     }
     
     private var isContentPostValidPublisher: AnyPublisher<Bool, Never> {
@@ -60,18 +65,29 @@ class CreatePostViewModel: ObservableObject
             return
         }
         self.isLoading = true
-
+        
         let params: [String : Any] = ["contentPost": self.contentPostValue]
-        let networkManager = NetworkManager(data: params, url: nil, service: .sessions, method: .post)
-        networkManager.uploadPost(service: .createPosts, image: image, params: params) {
+        let networkManager = NetworkManager(data: params, url: nil, service: .emptyEnpoint, method: .post)
+        networkManager.uploadPost(service: .createPosts, image: image, imageWithName: "postImage", method: .post, params: params) {
             (result: Result<PostModel,Error>) in
             self.isLoading = false
             switch result{
             case .success(let response):
                 print("response", response)
+                self.alerter?.alert = Alert(title: Text("Create a post successfully!"))
             case .failure(let error):
-//                self.alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
-                print("error999", error)
+                let errorCode = (error as NSError).code
+                if (errorCode == 403) {
+                    self.alerter?.alert = Alert(title: Text("Phiên làm việc của bạn đã hết hạn!"),
+                                                primaryButton: .cancel(),
+                                                secondaryButton:
+                                                        .default(Text("Quick login"),
+                                                                 action: {
+                        self.navigateToQuickLogin = true
+                    }))
+                } else {
+                    self.alerter?.alert = Alert(title: Text("Something is wrong!"))
+                }
             }
         }
     }

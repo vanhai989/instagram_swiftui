@@ -32,17 +32,17 @@ struct ImageGrid: View {
     }
 }
 
-struct ImageGrid_Previews: PreviewProvider {
-    static var previews: some View {
-        ImageGrid(numberOfImage: 20)
-    }
-}
+//struct ImageGrid_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ImageGrid(numberOfImage: 20)
+//    }
+//}
 
 struct ImageCircle: View {
-    let user: User
+    let user: UserModel
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: user.userImage)) { image in
+            AsyncImage(url: URL(string: user.avatar ?? imageRandom)) { image in
                 image.resizable()
                     .scaledToFill()
                     .cornerRadius(30)
@@ -53,7 +53,7 @@ struct ImageCircle: View {
             }
             .frame(width: 60, height: 60)
             .padding([.top, .horizontal], 5)
-            Text(user.userName)
+            Text(user.name ?? "asdasd")
                 .truncationMode(.tail)
                 .font(.system(size: 13))
                 .frame(width: 80, height: 15)

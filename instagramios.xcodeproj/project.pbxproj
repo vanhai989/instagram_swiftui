@@ -32,7 +32,7 @@
 		CC72D12D2768A67D0071BF00 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12C2768A67D0071BF00 /* Loading.swift */; };
 		CC72D1302768B04E0071BF00 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D12F2768B04D0071BF00 /* NetworkService.swift */; };
 		CC72D1342768E6640071BF00 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC72D1332768E6640071BF00 /* AuthModel.swift */; };
-		CC73DB54285A3EE8008AEBDD /* CreatePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */; };
+		CC73DB54285A3EE8008AEBDD /* CreatePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC73DB53285A3EE8008AEBDD /* CreatePostsView.swift */; };
 		CC73DB56285A448D008AEBDD /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC73DB55285A448C008AEBDD /* CreatePostViewModel.swift */; };
 		CC82E34C285D8EB000BB08EB /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC82E34B285D8EB000BB08EB /* helper.swift */; };
 		CC82E34E285DD42F00BB08EB /* QuickLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */; };
@@ -90,7 +90,7 @@
 		CC72D12C2768A67D0071BF00 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		CC72D12F2768B04D0071BF00 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CC72D1332768E6640071BF00 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
-		CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePosts.swift; sourceTree = "<group>"; };
+		CC73DB53285A3EE8008AEBDD /* CreatePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostsView.swift; sourceTree = "<group>"; };
 		CC73DB55285A448C008AEBDD /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
 		CC82E34B285D8EB000BB08EB /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
 		CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginView.swift; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 				CCE325F7276752E90064B51A /* ProfileTabView.swift */,
 				CCE325F8276752E90064B51A /* SignUpView.swift */,
 				CC3F67B12859E30F007F885F /* ToastView.swift */,
-				CC73DB53285A3EE8008AEBDD /* CreatePosts.swift */,
+				CC73DB53285A3EE8008AEBDD /* CreatePostsView.swift */,
 				CC82E34D285DD42F00BB08EB /* QuickLoginView.swift */,
 			);
 			name = view;
@@ -463,7 +463,7 @@
 				CCFB20382858E7BE00420F67 /* AuthResponseModel.swift in Sources */,
 				CCE32601276752E90064B51A /* CommunicateView.swift in Sources */,
 				08F6144927619F2700D226DB /* instagramiosApp.swift in Sources */,
-				CC73DB54285A3EE8008AEBDD /* CreatePosts.swift in Sources */,
+				CC73DB54285A3EE8008AEBDD /* CreatePostsView.swift in Sources */,
 				CCE32606276752E90064B51A /* SignUpView.swift in Sources */,
 				CC82E34C285D8EB000BB08EB /* helper.swift in Sources */,
 				CCE32604276752E90064B51A /* SearchTabView.swift in Sources */,

@@ -10,10 +10,30 @@ import SwiftUI
 
 class HomeTabViewModel: ObservableObject
 {
-    @EnvironmentObject var alerter: Alerter
-    @Published var users: [User] = MockData().users
+    @Published var users: [UserModel] = []
     @Published var posts: [PostModel] = []
     @State var isReLogin: Bool = false
+    @Published var navigateToQuickLogin = false
+    var alerter: Alerter?
+    
+    func setupEnviroment(alerter: Alerter) {
+        self.alerter = alerter
+    }
+    
+    func getUsers () {
+        NetworkManager(data: [:], url: nil, service: .users, method: .get, isJSONRequest: false).executeQuery(){
+            
+            (result: Result<[UserModel],Error>) in
+            switch result{
+            case .success(let response):
+             
+                self.users = response
+            case .failure(let error):
+                let errorCode = (error as NSError).code
+                print(errorCode)
+            }
+        }
+    }
     
     func getPosts () {
         NetworkManager(data: [:], url: nil, service: .getPosts, method: .get, isJSONRequest: false).executeQuery(){
@@ -21,23 +41,24 @@ class HomeTabViewModel: ObservableObject
             (result: Result<[PostModel],Error>) in
             switch result{
             case .success(let response):
-                print("response", response)
                 self.posts = response
-//                self.alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
             case .failure(let error):
-                print(error)
                 let errorCode = (error as NSError).code
                 if (errorCode == 403) {
-//                    self.alerter.alert = Alert(title: Text("Thông báo!"), message: Text("Phiên làm việc của bạn đã hết hạn"), primaryButton: .destructive(Text("Quick login")) {
-//                        print("Quick login...")
-//                        self.isReLogin = true
-//                    },
-//                                               secondaryButton: .cancel())
-//                    self.alerter.alert = Alert(title: Text("Hello from SomeChildView!"))
+                    self.alerter?.alert = Alert(title: Text("Phiên làm việc của bạn đã hết hạn!"),
+                                                primaryButton: .cancel(),
+                                                secondaryButton:
+                                                        .default(Text("Quick login"),
+                                                                 action: {
+                        self.navigateToQuickLogin = true
+                    }))
+                } else {
+                    self.alerter?.alert = Alert(title: Text("Something is wrong!"))
                 }
             }
         }
     }
+    
     
     func likeAction() {
         print("clicked like this post")

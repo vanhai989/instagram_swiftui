@@ -86,7 +86,7 @@ class SignUpViewModel: ObservableObject
     func onSignUp() -> Void {
         self.isLoading = true
         let body: [String : Any] = ["email": self.email,"password": self.password, "name": self.username]
-        let networkManager = NetworkManager(data: body, url: nil, service: .signUp, method: .post)
+        let networkManager = NetworkManager(data: body, url: nil, service: .users, method: .post)
             networkManager.executeQuery(){
                          (result: Result<UserModel,Error>) in
                         self.isLoading = false

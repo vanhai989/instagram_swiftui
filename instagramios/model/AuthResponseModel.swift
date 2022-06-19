@@ -17,13 +17,16 @@ struct LoginModel: Codable {
         var user: UserModel?
 }
 
+struct UserModel: Codable, Hashable {
+    let id, email, password, name: String?
+    let createdAt, updatedAt: String?
+    let v: Int?
+    let avatar: String?
 
-struct UserModel: Codable {
-    var _id: String?
-    var email: String?
-    var name: String?
-    var avatar: String?
-    var createdAt: String?
-    var updatedAt: String?
-    var __v: Int?
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case email, password, name, createdAt, updatedAt
+        case v = "__v"
+        case avatar
+    }
 }

@@ -24,12 +24,12 @@ func getToken() -> String {
 
 func getUser() -> LoginModel {
     let defaults = UserDefaults.standard
-    let emptyData: LoginModel = LoginModel(accessToken: "", refreshToken: "", user: UserModel(_id: "", email: "", name: "", avatar: "", createdAt: "", updatedAt: "", __v: 0))
+    let emptyData: LoginModel = LoginModel(accessToken: "", refreshToken: "", user: UserModel(id: "", email: "", password: "", name: "", createdAt: "", updatedAt: "", v: 0, avatar: ""))
     guard let tokenData = defaults.object(forKey: "accessToken") as? Data,
-          let accessToken = try? PropertyListDecoder().decode(LoginModel.self, from: tokenData) else {
+          let user = try? PropertyListDecoder().decode(LoginModel.self, from: tokenData) else {
               return emptyData
           }
-    return accessToken
+    return user
 }
 
 func clearToken() {

@@ -11,24 +11,36 @@ struct ProfileTabView: View {
     @ObservedObject var viewModel: ProfileViewModel = ProfileViewModel()
     @State private var isShowPhotoLibrary = false
     @State var image = UIImage()
+    @State var isShowEditAvatar: Bool = false
     var body: some View {
         NavigationView {
             Loading(isShowing: $viewModel.isLoading) {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center) {
-                            Button(action: {self.isShowPhotoLibrary = true}) {
-                                AsyncImage(url: URL(string: viewModel.user.user?.avatar ?? imageRandom)) { image in
-                                    image.resizable()
-                                        .frame(width: 100, height: 100, alignment: .center)
-                                        .cornerRadius(50)
-                                        .clipped()
-                                } placeholder: {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                        .frame(maxWidth: 50, maxHeight: 50)
-                                }
-                                .padding()
+                            Button(action: {
+                                self.isShowPhotoLibrary = true
+                                self.isShowEditAvatar = true}) {
+                                    if (!self.isShowEditAvatar) {
+                                        AsyncImage(url: URL(string: viewModel.user.user?.avatar ?? imageRandom)) { image in
+                                            image.resizable()
+                                                .frame(width: 100, height: 100, alignment: .center)
+                                                .cornerRadius(50)
+                                                .clipped()
+                                        } placeholder: {
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                                .frame(maxWidth: 50, maxHeight: 50)
+                                        }
+                                        .padding()
+                                    } else {
+                                        
+                                        Image(uiImage: self.image).resizable()
+                                            .frame(width: 100, height: 100, alignment: .center)
+                                            .cornerRadius(50)
+                                            .clipped()
+                                            .padding()
+                                    }
                             }
                             
                             Spacer()
@@ -41,7 +53,7 @@ struct ProfileTabView: View {
                         ListInfomationItem(info1: Strings.info1.rawValue, info2: Strings.info2.rawValue, info3: Strings.info3.rawValue, info4: Strings.info4.rawValue, info5: Strings.info5.rawValue, info6: Strings.info6.rawValue)
                         
                         HStack(alignment: .center, spacing: 20) {
-                            ButtonText(action: actionButton, buttonText: Strings.buttonEdit.rawValue)
+                            ButtonText(action: {viewModel.updateAvatar(avatar: self.image)}, buttonText: Strings.buttonEdit.rawValue)
                             ButtonText(action: actionButton, buttonText: Strings.buttonSaved.rawValue)
                         }
                         

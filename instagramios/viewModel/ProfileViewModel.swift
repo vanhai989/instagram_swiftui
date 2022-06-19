@@ -15,17 +15,21 @@ class ProfileViewModel: ObservableObject {
     
     func updateAvatar (avatar: UIImage) {
         self.isLoading = true
-        let networkManager = NetworkManager(data: [:], url: nil, service: .updateAvatar, method: .put)
-        networkManager.uploadPost(service: .createPosts, image: avatar, params: [:]) {
+        let networkManager = NetworkManager(data: [:], url: nil, service: .emptyEnpoint, method: .put)
+        networkManager.uploadPost(service: .updateAvatar, image: avatar, imageWithName: "avatar", method: .put, params: [:]) {
             (result: Result<UserModel,Error>) in
             self.isLoading = false
             switch result{
             case .success(let response):
-                print("response", response)
+                let oldUser = getUser()
+                let newLoginModel = LoginModel(accessToken: oldUser.accessToken, refreshToken: oldUser.refreshToken, user: response)
+                cacheToken(token: newLoginModel)
+                dump(getUser())
             case .failure(let error):
                 print(error)
             }
         }
+        self.isLoading = false
     }
     
     

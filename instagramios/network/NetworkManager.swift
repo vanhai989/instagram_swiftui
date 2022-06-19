@@ -79,14 +79,16 @@ class NetworkManager : NSObject{
     func uploadPost<T>(
         service :services? = nil,
         image: UIImage,
+        imageWithName: String,
+        method: HTTPMethod,
         params: [String : Any], completion: @escaping (Result<T, Error>) -> Void) where T: Codable {
             self.url += service!.rawValue
             AF.upload(multipartFormData: { multiPart in
                 for p in params {
                     multiPart.append("\(p.value)".data(using: String.Encoding.utf8)!, withName: p.key)
                 }
-                multiPart.append(image.jpegData(compressionQuality: 0.5)!, withName: "postImage", fileName: "file.jpg", mimeType: "image/jpg")
-            }, to: "http://127.0.0.1:3000/api/instagrampost", method: .post, headers: self.headers)
+                multiPart.append(image.jpegData(compressionQuality: 0.5)!, withName: imageWithName, fileName: "file.jpg", mimeType: "image/jpg")
+            }, to: self.url, method: method, headers: self.headers)
                 .responseData( completionHandler: {response in
                     switch response.result{
                     case .success(let res):
@@ -95,8 +97,6 @@ class NetworkManager : NSObject{
                             case 200...299:
                                 do {
                                     completion(.success(try JSONDecoder().decode(T.self, from: res)))
-                                    // TODO: hande expire token here status: 403
-                                    
                                 } catch let error {
                                     print(String(data: res, encoding: .utf8) ?? "nothing received")
                                     completion(.failure(error))
