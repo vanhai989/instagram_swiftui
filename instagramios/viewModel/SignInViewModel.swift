@@ -57,7 +57,6 @@ class SignInViewModel: ObservableObject
     private var isEmailValidPublisher: AnyPublisher<Bool, Never> {
         $email
             .debounce(for: 0.2, scheduler: RunLoop.main)
-            .removeDuplicates()
             .map {
                 value in Constants.emailPredicate.evaluate(with: value)
             }
@@ -67,7 +66,6 @@ class SignInViewModel: ObservableObject
     private var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
         $password
             .debounce(for: 0.2, scheduler: RunLoop.main)
-            .removeDuplicates()
             .map {
                 value in
                 if value.isEmpty {
