@@ -42,7 +42,8 @@ enum Strings: String {
          activity = "Activity",
          userName = "Hai dev",
          buttonEdit = "Edit Profile",
-         buttonSaved = "Saved"
+         buttonSaved = "Saved",
+         testForcePush = "testForcePush"
 }
 
 enum Images: String {
