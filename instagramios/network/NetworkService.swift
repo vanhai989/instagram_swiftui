@@ -22,7 +22,7 @@ enum services :String{
 // MARK: baseURL
 var baseURL: String {
     switch NetworkManager.networkEnviroment {
-    case .dev: return "http://127.0.0.1:3000/"
+    case .dev: return "http://localhost:3000/"
     case .production: return "http://127.0.0.1:3000/"
     case .stage: return "http://127.0.0.1:3000/"
     }

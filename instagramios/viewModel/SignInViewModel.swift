@@ -18,6 +18,7 @@ class SignInViewModel: ObservableObject
     @Published var messageEmailErr = ""
     @Published var messagePasswordErr = ""
     @Published var isValid = false
+    var alerter: Alerter?
     
     private var cancellableSet: Set<AnyCancellable> = []
     @AppStorage(Settings.isLogined.rawValue) var isLogined: Bool = false
@@ -86,6 +87,10 @@ class SignInViewModel: ObservableObject
             .eraseToAnyPublisher()
     }
     
+    func setupEnviroment(alerter: Alerter) {
+        self.alerter = alerter
+    }
+    
     func login() {
         self.isLoading = true
         let body: [String : Any] = ["email": self.email,"password": self.password]
@@ -98,6 +103,7 @@ class SignInViewModel: ObservableObject
                 self.isLogined = true
                 cacheToken(token: response)
             case .failure(let error):
+                self.alerter?.alert = Alert(title: Text("invalid email or password!"))
                 print(error)
             }
         }

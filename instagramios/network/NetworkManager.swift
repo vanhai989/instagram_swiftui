@@ -113,8 +113,6 @@ class NetworkManager : NSObject{
         }
 }
 
-
-
 /**
  *check connectivity
  */
